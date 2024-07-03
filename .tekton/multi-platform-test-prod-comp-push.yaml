@@ -10,23 +10,23 @@ metadata:
     pipelinesascode.tekton.dev/on-target-branch: '[main]'
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: multi-app-lbxm
-    appstudio.openshift.io/component: multi-comp-dkex
+    appstudio.openshift.io/application: multi-platform-new
+    appstudio.openshift.io/component: multi-platform-test-prod-comp
     pipelines.appstudio.openshift.io/type: build
-  name: multi-platform-test-prod-on-push
-  namespace: dev-release-team-tenant 
+  name: multi-platform-test-prod-comp-on-push
+  namespace: dev-release-team-tenant
 spec:
   params:
-  - name: dockerfile
-    value: docker/Dockerfile
-  - name: git-url
-    value: '{{source_url}}'
-  - name: output-image
-    value: quay.io/redhat-user-workloads-stage/dev-release-team-tenant/multi-app-lbxm/multi-comp-dkex:{{revision}}
-  - name: path-context
-    value: .
-  - name: revision
-    value: '{{revision}}'
+    - name: dockerfile
+      value: docker/Dockerfile
+    - name: git-url
+      value: '{{source_url}}'
+    - name: output-image
+      value: quay.io/redhat-user-workloads-stage/dev-release-team-tenant/multi-platform-new/multi-platform-test-prod-comp:{{revision}}
+    - name: path-context
+      value: .
+    - name: revision
+      value: '{{revision}}'
   pipelineRef:
     name: build-pipeline
   workspaces:
@@ -65,4 +65,3 @@ spec:
     - name: git-auth
       secret:
         secretName: '{{ git_auth_secret }}'
-
